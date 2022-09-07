@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.tpdf.shoot.mappers.notice">
+	<!-- 게시물 목록 -->
+	<select id="list" resultType="com.tpdf.shoot.vo.NoticeVo">
+		select
+	 		notice_idx, notice_title, notice_content, notice_writer, notice_wdate, notice_hit
+	 	from notice_tbl
+	</select>
+	<insert id="insert">
+	    insert into notice_tbl (notice_writer, notice_title, notice_content, notice_wdate)
+	    values (#{notice_writer}, #{notice_title}, #{notice_content}, NOW())
+    </insert>
+    
+     <select id="modify" resultType="com.tpdf.shoot.vo.NoticeVo">
+        select notice_idx, notice_title, notice_content, notice_writer, notice_wdate
+        from notice_tbl where notice_idx = #{notice_idx}
+      
+    </select>
+	 <update id="update">
+    	update notice_tbl
+			set	 notice_title= #{notice_title},
+				 notice_content= #{notice_content},
+				 notice_writer= #{notice_writer},
+				 notice_wdate= now()
+				 where notice_idx = #{notice_idx}
+    </update>
+      <!-- 게시물 -->
+    <delete id="delete">
+        delete from notice_tbl	
+        where notice_idx=#{notice_idx}
+    </delete>
+    
+</mapper>	       
+    
